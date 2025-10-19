@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 import static calculator.util.Constants.DEFAULT_SEPARATOR_REGEX;
 import static calculator.util.Constants.PATTERN_TEXT;
+import static calculator.util.ErrorMessages.ERROR_INPUT;
+import static calculator.util.ErrorMessages.NEGATIVE_NUMBER_ERROR;
 
 public class CalculatorService {
     private final InputValidator inputValidator;
@@ -18,6 +20,7 @@ public class CalculatorService {
 
     public int calculate(Calculator calculator) {
         inputValidator.validateInput(calculator);
+
         String s = calculator.getStr();
         if (s == null || s.isBlank()) {
             return 0;
@@ -51,9 +54,21 @@ public class CalculatorService {
     private int sumNumbers(Calculator calculator) {
         int sum = 0;
         for (String a : calculator.getStrArr()) {
-            sum += Integer.parseInt(a);
+            int number = validatePositive(a);
+            sum += number;
         }
         calculator.setAnswer(sum);
         return sum;
+    }
+
+    public int validatePositive(String value){
+        try{
+            int number = Integer.parseInt(value);
+            if(number < 0)
+                throw new IllegalArgumentException(NEGATIVE_NUMBER_ERROR.getMessage());
+            return number;}
+        catch (NumberFormatException e){
+            throw new IllegalArgumentException(ERROR_INPUT.getMessage());
+        }
     }
 }
