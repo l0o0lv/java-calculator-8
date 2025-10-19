@@ -15,8 +15,8 @@ public class CalculatorController {
 
     public void run(){
         inputString();
-        calculatorService.calculate(calculator);
-        OutputView.printAnswerMsg(calculator.getAnswer());
+        int answer = calculatorService.calculate(calculator);
+        OutputView.printAnswerMsg(answer);
     }
 
     public static void inputString(){

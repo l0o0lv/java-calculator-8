@@ -1,8 +1,6 @@
 package calculator.service;
 
 import calculator.model.Calculator;
-import calculator.validator.InputValidator;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,16 +10,11 @@ import static calculator.util.ErrorMessages.ERROR_INPUT;
 import static calculator.util.ErrorMessages.NEGATIVE_NUMBER_ERROR;
 
 public class CalculatorService {
-    private final InputValidator inputValidator;
 
-    public CalculatorService(InputValidator inputValidator) {
-        this.inputValidator = inputValidator;
-    }
-
-    public void calculate(Calculator calculator) {
-        inputValidator.validateInput(calculator);
+    public int calculate(Calculator calculator) {
+        if(calculator.validateNull()) return 0;
         splitNumber(calculator);
-        sumNumbers(calculator);
+        return sumNumbers(calculator);
     }
 
     private void splitNumber(Calculator calculator) {
@@ -46,13 +39,13 @@ public class CalculatorService {
         calculator.setStrArr(calculator.getStr().split(DEFAULT_SEPARATOR_REGEX));
     }
 
-    private void sumNumbers(Calculator calculator) {
+    private int sumNumbers(Calculator calculator) {
         int sum = 0;
         for (String a : calculator.getStrArr()) {
             int number = validatePositive(a);
             sum += number;
         }
-        calculator.setAnswer(sum);
+        return sum;
     }
 
     private int validatePositive(String value){
