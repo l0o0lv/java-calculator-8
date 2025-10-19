@@ -6,7 +6,6 @@ import calculator.view.InputView;
 import calculator.view.OutputView;
 
 public class CalculatorController {
-    private static String str = "";
     private static Calculator calculator;
     private final InputValidator inputValidator;
 
