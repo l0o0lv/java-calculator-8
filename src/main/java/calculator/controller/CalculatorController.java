@@ -1,21 +1,22 @@
 package calculator.controller;
 
 import calculator.model.Calculator;
+import calculator.service.CalculatorService;
 import calculator.validator.InputValidator;
 import calculator.view.InputView;
 import calculator.view.OutputView;
 
 public class CalculatorController {
     private static Calculator calculator;
-    private final InputValidator inputValidator;
+    private final CalculatorService calculatorService;
 
-    public CalculatorController(InputValidator inputValidator) {
-        this.inputValidator = inputValidator;
+    public CalculatorController(CalculatorService calculatorService) {
+        this.calculatorService = calculatorService;
     }
 
     public void run(){
         inputString();
-        inputValidator.validateInput(calculator);
+        calculatorService.calculate(calculator);
     }
 
     public static void inputString(){

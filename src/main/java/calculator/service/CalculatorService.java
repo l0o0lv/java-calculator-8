@@ -1,20 +1,22 @@
 package calculator.service;
 
 import calculator.model.Calculator;
+import calculator.validator.InputValidator;
 
 public class CalculatorService {
-    public void parseNumbers(Calculator calculator){
-        if(validateCustom(calculator)) customParse(calculator);
+    private final InputValidator inputValidator;
+
+    public CalculatorService(InputValidator inputValidator) {
+        this.inputValidator = inputValidator;
     }
 
-    public boolean validateCustom(Calculator calculator){
-//        return calculator.str().startsWith("/");
+    public int calculate(Calculator calculator) {
+        inputValidator.validateInput(calculator);
+        String s = calculator.getStr();
+        if (s == null || s.isBlank()) {
+            return 0;
+        }
+        // 이후 커밋에서 split → sumNumbers 순서로 완성
+        return 0;
     }
-
-    public void customParse(Calculator calculator){
-//        String separator = String.valueOf(calculator.str().charAt(2));
-//        calculator.str() = calculator.str().substring(5);
-//        this.strArr = this.str.split(separator);
-    }
-
 }
