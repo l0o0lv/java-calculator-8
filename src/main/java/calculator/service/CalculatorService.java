@@ -55,7 +55,7 @@ public class CalculatorService {
         calculator.setAnswer(sum);
     }
 
-    public int validatePositive(String value){
+    private int validatePositive(String value){
         try{
             int number = Integer.parseInt(value);
             if(number < 0)
