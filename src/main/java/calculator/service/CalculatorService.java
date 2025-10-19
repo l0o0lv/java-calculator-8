@@ -18,16 +18,10 @@ public class CalculatorService {
         this.inputValidator = inputValidator;
     }
 
-    public int calculate(Calculator calculator) {
+    public void calculate(Calculator calculator) {
         inputValidator.validateInput(calculator);
-
-        String s = calculator.getStr();
-        if (s == null || s.isBlank()) {
-            return 0;
-        }
-
         splitNumber(calculator);
-        return sumNumbers(calculator);
+        sumNumbers(calculator);
     }
 
     private void splitNumber(Calculator calculator) {
@@ -41,6 +35,7 @@ public class CalculatorService {
             normalSplit(calculator);
         }
     }
+
     private void customSplit(Calculator calculator, Matcher matcher) {
         String customSeparator = matcher.group(1);  // 예: ";"
         String customText = matcher.group(2);       // 예: "1;2;3"
@@ -51,14 +46,13 @@ public class CalculatorService {
         calculator.setStrArr(calculator.getStr().split(DEFAULT_SEPARATOR_REGEX));
     }
 
-    private int sumNumbers(Calculator calculator) {
+    private void sumNumbers(Calculator calculator) {
         int sum = 0;
         for (String a : calculator.getStrArr()) {
             int number = validatePositive(a);
             sum += number;
         }
         calculator.setAnswer(sum);
-        return sum;
     }
 
     public int validatePositive(String value){
