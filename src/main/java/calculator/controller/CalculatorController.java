@@ -2,7 +2,6 @@ package calculator.controller;
 
 import calculator.model.Calculator;
 import calculator.service.CalculatorService;
-import calculator.validator.InputValidator;
 import calculator.view.InputView;
 import calculator.view.OutputView;
 
@@ -17,6 +16,7 @@ public class CalculatorController {
     public void run(){
         inputString();
         calculatorService.calculate(calculator);
+        OutputView.printAnswerMsg(calculator.getAnswer());
     }
 
     public static void inputString(){

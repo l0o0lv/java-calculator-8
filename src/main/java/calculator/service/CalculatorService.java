@@ -3,6 +3,12 @@ package calculator.service;
 import calculator.model.Calculator;
 import calculator.validator.InputValidator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static calculator.util.Constants.DEFAULT_SEPARATOR_REGEX;
+import static calculator.util.Constants.PATTERN_TEXT;
+
 public class CalculatorService {
     private final InputValidator inputValidator;
 
@@ -16,7 +22,38 @@ public class CalculatorService {
         if (s == null || s.isBlank()) {
             return 0;
         }
-        // 이후 커밋에서 split → sumNumbers 순서로 완성
-        return 0;
+
+        splitNumber(calculator);
+        return sumNumbers(calculator);
+    }
+
+    private void splitNumber(Calculator calculator) {
+        Matcher matcher = Pattern.compile(PATTERN_TEXT).matcher(calculator.getStr());
+
+        if (matcher.find()) {
+            // 커스텀 구분자 로직으로 분기
+            customSplit(calculator, matcher);
+        } else {
+            // 기본 구분자(, :)로 분리
+            normalSplit(calculator);
+        }
+    }
+    private void customSplit(Calculator calculator, Matcher matcher) {
+        String customSeparator = matcher.group(1);  // 예: ";"
+        String customText = matcher.group(2);       // 예: "1;2;3"
+        calculator.setStrArr(customText.split(customSeparator));
+    }
+
+    private void normalSplit(Calculator calculator) {
+        calculator.setStrArr(calculator.getStr().split(DEFAULT_SEPARATOR_REGEX));
+    }
+
+    private int sumNumbers(Calculator calculator) {
+        int sum = 0;
+        for (String a : calculator.getStrArr()) {
+            sum += Integer.parseInt(a);
+        }
+        calculator.setAnswer(sum);
+        return sum;
     }
 }

@@ -18,4 +18,20 @@ public class Calculator {
     public String getStr() {
         return str;
     }
+
+    public void setStrArr(String[] split) {
+        this.strArr = split;
+    }
+
+    public String[] getStrArr() {
+        return strArr;
+    }
+
+    public void setAnswer(int sum) {
+        this.answer = sum;
+    }
+
+    public int getAnswer() {
+        return answer;
+    }
 }

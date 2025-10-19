@@ -3,4 +3,6 @@ package calculator.util;
 public class Constants {
     public static final String OUTPUT_SUM_STRING = "덧셈할 문자열을 입력해 주세요.";
     public static final String OUTPUT_ANSWER = "결과 : ";
+    public static final String PATTERN_TEXT = "//(.)\\\\n(.*)";
+    public static final String DEFAULT_SEPARATOR_REGEX = "[,:]";
 }
