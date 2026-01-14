@@ -17,6 +17,7 @@ public class CalculatorController {
         inputString();
         int answer = calculatorService.calculate(calculator);
         OutputView.printAnswerMsg(answer);
+        //TEST COMMIT
     }
 
     public static void inputString(){
